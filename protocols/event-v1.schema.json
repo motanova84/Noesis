@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://noesis.dev/protocols/event-v1.json",
+  "title":"Noesis Event Protocol v1",
+  "type":"object",
+  "required":["event_id","event_type","source","timestamp","payload","protocol","version"],
+  "properties":{
+    "event_id":{"type":"string","minLength":1},
+    "event_type":{"enum":["system.boot","resonance.measurement","node.heartbeat","node.status","bus.sync","verification.record"]},
+    "source":{"type":"string","minLength":1},
+    "timestamp":{"type":"string"},
+    "payload":{"type":"object"},
+    "protocol":{"const":"noesis-event"},
+    "version":{"const":"1.0"}
+  },
+  "additionalProperties":false
+}

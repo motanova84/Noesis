@@ -1,15 +1,6 @@
-"""Noesis core: deterministic state, resonance metrics, nodes and ledger."""
+"""Public operational runtime for the Noesis ecosystem."""
+from .ecosystem import EcosystemRuntime
+from .events import NoesisEvent, make_event
+from .provenance import VerificationRecord
 
-from .resonance import F0_REFERENCE, ResonanceState, coherence
-from .nodes import Node, NodeRegistry
-from .ledger import Ledger, LedgerEvent
-
-__all__ = [
-    "F0_REFERENCE",
-    "ResonanceState",
-    "coherence",
-    "Node",
-    "NodeRegistry",
-    "Ledger",
-    "LedgerEvent",
-]
+__all__ = ["EcosystemRuntime", "NoesisEvent", "make_event", "VerificationRecord"]
