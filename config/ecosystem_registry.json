@@ -1,0 +1,43 @@
+{
+  "schema": "noesis-ecosystem/1.0",
+  "policy": {
+    "preserve_existing": true,
+    "delete_existing_artifacts": false,
+    "source_of_truth": "native_repository",
+    "integration_mode": "additive"
+  },
+  "reference": {
+    "f0_hz": 141.7001,
+    "pi_code_harmonic_hz": 888.0,
+    "psi_threshold": 0.999999
+  },
+  "repositories": [
+    {"id":"qcal-bus","repo":"motanova84/QCAL-BUS","role":"bus","protocols":["MCP-JSON-RPC-2.0","HTTP"],"artifacts":["qcal_mesh_sync.py","registry/NODE_CATALOG.json","ledger/emissions_log.csv","docs/MCP-QCAL-EPR.md"]},
+    {"id":"noesis88","repo":"motanova84/noesis88","role":"orchestrator","protocols":["MCP-stdio","HTTP-REST"],"artifacts":["mcp_servers/orchestrator.py","api/mcp_api.py","MCP_QUICK_REFERENCE.txt"]},
+    {"id":"141hz","repo":"motanova84/141hz","role":"frequency-evidence","protocols":["MCP-network-validation","CI"],"artifacts":["core/validate_mcp_network.py","docs/validation.md","PREREGISTRATION.md","EINSTEIN_QCAL.md"]},
+    {"id":"qcal-formalization","repo":"motanova84/qcal-formalization","role":"formalization","protocols":["Lean4"],"artifacts":["lakefile.lean","QCAL/","QCAL_V3/"]},
+    {"id":"riemann-adelic","repo":"motanova84/Riemann-adelic","role":"mathematical-node","protocols":["Lean4","MCP"]},
+    {"id":"p-np","repo":"motanova84/P-NP","role":"mathematical-node","protocols":["Lean4","MCP"]},
+    {"id":"navier-stokes","repo":"motanova84/3D-Navier-Stokes","role":"mathematical-node","protocols":["Lean4","MCP"]},
+    {"id":"ramsey","repo":"motanova84/Ramsey","role":"combinatorial-node","protocols":["SAT","Z3","Lean4","MCP"]},
+    {"id":"adelic-bsd","repo":"motanova84/adelic-bsd","role":"mathematical-node","protocols":["Lean4","MCP"]},
+    {"id":"quantum-internet-qcal","repo":"motanova84/quantum-internet-qcal","role":"quantum-network","protocols":["QOSC-RC","QKD","MCP","HTTP"]},
+    {"id":"reloj-141hz","repo":"motanova84/RelojCuantico-141Hz-QCAL","role":"clock-hardware-experiment","protocols":["Lean4","Python","hardware"]},
+    {"id":"field-qcal","repo":"motanova84/field-qcal","role":"application-layer","protocols":["Python"]},
+    {"id":"economia-qcal","repo":"motanova84/economia-qcal-nodo-semilla","role":"economy","protocols":["PoCPSI","QHPT"]},
+    {"id":"sovereign-vault","repo":"motanova84/QCAL-Sovereign-Vault","role":"security-provenance"},
+    {"id":"geometry-qcal","repo":"motanova84/empaquetamiento-esferas-qcal","role":"geometry"},
+    {"id":"geometry-qcal3","repo":"motanova84/empaquetamiento-esferas-qcal3","role":"geometry"},
+    {"id":"ecosystem-backup","repo":"motanova84/ecosistema-qcal-backup","role":"recovery-reference","policy":"read-only"}
+  ],
+  "native_endpoints": {
+    "qcal_bus_mcp_http": "http://localhost:5000/api/mcp",
+    "qcal_bus_dashboard": "http://localhost:8505",
+    "noesis88_api": "http://localhost:8700/mcp"
+  },
+  "audit_findings": [
+    {"type":"node-count-drift","source":"motanova84/QCAL-BUS","live_catalog":"34","older_docs":"33","action":"read_live_catalog"},
+    {"type":"frequency-notation-drift","source":"motanova84/RelojCuantico-141Hz-QCAL","values":["141.70001","141.7001"],"action":"preserve_source_value_and_flag"},
+    {"type":"publication-capability","source":"motanova84/QCAL-BUS","documented_event_publish":false,"action":"do_not_assume_write_capability"}
+  ]
+}
