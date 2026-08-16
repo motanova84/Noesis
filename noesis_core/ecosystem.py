@@ -1,4 +1,4 @@
-"""Ecosystem runtime: discovery, liveness, provenance and snapshots."""
+"""Ecosystem runtime: discovery, liveness, provenance and temporal memory."""
 from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
@@ -6,20 +6,24 @@ import json
 from .adapters import QCALBusAdapter, Noesis88Adapter
 from .provenance import VerificationRecord
 from .events import make_event
-from .ledger import Ledger
+from .persistent_ledger import PersistentLedger
+from .temporal_memory import TemporalMemory
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "config" / "ecosystem_registry.json"
+STATE_DIR = ROOT / ".noesis"
 
 @dataclass(frozen=True)
 class EcosystemNode:
     id: str; repo: str; role: str; protocols: tuple[str, ...] = ()
 
 class EcosystemRuntime:
-    def __init__(self, registry: Path | str = REGISTRY):
+    def __init__(self, registry: Path | str = REGISTRY, state_dir: Path | str = STATE_DIR):
         self.registry_path = Path(registry)
         self.config = json.loads(self.registry_path.read_text(encoding="utf-8"))
-        self.ledger = Ledger()
+        self.state_dir = Path(state_dir)
+        self.ledger = PersistentLedger(self.state_dir / "ledger.jsonl")
+        self.temporal_memory = TemporalMemory(self.state_dir / "temporal_memory.jsonl")
     @property
     def reference(self): return self.config["reference"]
     def nodes(self):
@@ -53,4 +57,10 @@ class EcosystemRuntime:
         return event
     def snapshot(self):
         from .snapshot import Snapshot
-        return Snapshot(self).capture()
+        snapshot = Snapshot(self).capture()
+        point = self.temporal_memory.record(snapshot, "captured", "ecosystem.snapshot", self.ledger.events[-1].hash if self.ledger.events else None)
+        snapshot["temporal_memory"] = {"sequence": point.sequence, "fingerprint": point.fingerprint, "restoration_point": True}
+        return snapshot
+    def temporal_status(self):
+        latest = self.temporal_memory.latest
+        return {"records": len(self.temporal_memory.points), "latest": None if latest is None else latest.__dict__, "integrity": self.temporal_memory.verify(), "ledger_integrity": self.ledger.verify()}
