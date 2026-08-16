@@ -1,1 +1,1 @@
-"""Command-line interface for Noesis."""
+"""Noesis CLI package."""
