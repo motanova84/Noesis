@@ -1,0 +1,28 @@
+{
+  "schema": "qcal-omega-audit/1.0",
+  "system": "NOESIS-Ω",
+  "reference": {
+    "f0_hz": 141.7001,
+    "coherence_threshold": 0.999999
+  },
+  "evidence_rule": "A claim inherits the evidence level of its weakest required dependency.",
+  "levels": ["M", "C", "E"],
+  "statuses": ["OPEN", "FORMALIZED", "VERIFIED", "PREDICTED", "FALSIFIED"],
+  "claims": [
+    {"id":"P1","level":"M","status":"OPEN","title":"Domain and self-adjointness of H","depends_on":[],"artifact":"Riemann-adelic"},
+    {"id":"P2","level":"M","status":"OPEN","title":"Regularized trace recovers Weil explicit formula","depends_on":["P1"],"artifact":"Riemann-adelic"},
+    {"id":"P3","level":"M","status":"OPEN","title":"Spectral determinant Delta_H(s) equals xi(s)","depends_on":["P1","P2"],"artifact":"Riemann-adelic"},
+    {"id":"P4","level":"M","status":"OPEN","title":"Holographic complexity lower bound implies P != NP","depends_on":[],"artifact":"P-NP"},
+    {"id":"P5","level":"C","status":"VERIFIED","title":"QCAL spectrum reproduces first 20 Riemann ordinates within reported error","depends_on":["P3"],"artifact":"141hz"},
+    {"id":"P6","level":"C","status":"OPEN","title":"Null-control comparison for spectral agreement","depends_on":["P5"],"artifact":"Noesis"},
+    {"id":"P7","level":"E","status":"PREDICTED","title":"Detection of f0 = 141.7001 Hz under preregistered protocol","depends_on":["P5"],"artifact":"141hz"},
+    {"id":"P8","level":"E","status":"PREDICTED","title":"Signature B at 0.00052 Hz with preregistered detection criterion","depends_on":["P7"],"artifact":"Noesis"},
+    {"id":"P9","level":"E","status":"PREDICTED","title":"Predicted biological/photonic signatures","depends_on":["P7","P8"],"artifact":"Biologia-Cuantica-Noesica-"},
+    {"id":"P10","level":"C","status":"OPEN","title":"Reproducible computation of f0 derivations and uncertainty budget","depends_on":[],"artifact":"141hz"},
+    {"id":"P11","level":"C","status":"OPEN","title":"Independent null-model and permutation tests","depends_on":["P5"],"artifact":"Noesis"},
+    {"id":"P12","level":"E","status":"OPEN","title":"Environmental-noise rejection at 50/60 Hz and low-frequency drift","depends_on":["P7"],"artifact":"Noesis"},
+    {"id":"P13","level":"E","status":"OPEN","title":"Independent replication with blinded analysis","depends_on":["P7","P8","P12"],"artifact":"Noesis"},
+    {"id":"P14","level":"M","status":"OPEN","title":"Formal definition and consequences of consciousness fibre intersection","depends_on":[],"artifact":"field-qcal"},
+    {"id":"P15","level":"E","status":"OPEN","title":"Empirical validation of downstream consciousness/biology predictions","depends_on":["P14"],"artifact":"Biologia-Cuantica-Noesica-"}
+  ]
+}

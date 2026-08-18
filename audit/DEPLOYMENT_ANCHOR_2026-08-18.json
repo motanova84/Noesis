@@ -1,0 +1,24 @@
+{
+  "schema": "qcal-omega-deployment-anchor/1.0",
+  "system": "NOESIS-Ω",
+  "reference": {"f0_hz": 141.7001, "coherence_threshold": 0.999999},
+  "deployment": {
+    "repository": "motanova84/Noesis",
+    "branch": "feat/qcal-omega-audit",
+    "pr": "https://github.com/motanova84/Noesis/pull/2",
+    "head_before_anchor": "f21f58e4f1b177d624d19f4b57f212d21419fd80"
+  },
+  "bus_bridge": {
+    "repository": "motanova84/QCAL-BUS",
+    "branch": "feat/noesis-omega-bridge",
+    "pr": "https://github.com/motanova84/QCAL-BUS/pull/33",
+    "head": "0a6bbf1ffbfe0597790bd166f1d73f7ce9b1b983",
+    "workflow_run": 32144801415
+  },
+  "integrity": {
+    "mode": "additive",
+    "runtime_mutations": false,
+    "evidence_promotion_by_bus": false
+  },
+  "status": "DEPLOYED_TO_BRANCHES_PENDING_MERGE_AND_CI_GREEN"
+}
