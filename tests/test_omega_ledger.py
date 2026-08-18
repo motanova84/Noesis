@@ -1,5 +1,11 @@
-from audit.validate_omega_ledger import LEDGER, validate
 import json
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).parents[1]
+sys.path.insert(0, str(ROOT))
+
+from audit.validate_omega_ledger import LEDGER, validate
 
 
 def test_omega_ledger_is_valid():
